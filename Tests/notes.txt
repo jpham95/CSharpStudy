@@ -1,0 +1,11 @@
+UNIT TESTING
+
+    Naming convention - ClassName_MethodName_Scenario_ExpectedResult
+        eg: Calculator_AddTwoNumbers_ValidInput_ReturnsSumOfTwoNumbers
+    AAA - Arrange, Act, Assert
+        Arrange:
+            Declare and set values for variables, create and initialize objects
+        Act:
+            Execute the method under test with the arranged parameters
+        Assert:
+            Verify that the method under test behaves as expected
