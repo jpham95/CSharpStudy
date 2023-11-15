@@ -38,11 +38,11 @@ namespace DataStructures
 
         // Methods
 
-        public void Insert(T value)
+        public void Add(T value)
         {
             if (IsFull)
             {
-                throw new Exception("Heap is full");
+                throw new HeapFullException("Heap is full");
             }
             else
             {
@@ -56,7 +56,7 @@ namespace DataStructures
         {
             if (IsEmpty)
             {
-                throw new Exception("Heap is empty");
+                throw new HeapEmptyException("Heap is empty");
             }
             else
             {
@@ -68,7 +68,7 @@ namespace DataStructures
         {
             if (IsEmpty)
             {
-                throw new Exception("Heap is empty");
+                throw new HeapEmptyException("Heap is empty");
             }
             else
             {
@@ -77,7 +77,6 @@ namespace DataStructures
                 this.length--;
                 if (this.length > 0)
                 {
-                    this.array[1] = this.array[this.length + 1];
                     Sink(1);
                 }
                 return value;
@@ -117,10 +116,12 @@ namespace DataStructures
                     break;
                 }
                 this.array[index] = this.array[largestChildIndex];
+                this.array[largestChildIndex] = value;
                 index = largestChildIndex;
             }
             this.array[index] = value;
         }
+
         private int GetLargestChildIndex(int index)
         {
             if (2*index == this.length || this.array[2*index].CompareTo(this.array[2*index+1]) > 0)
@@ -138,6 +139,10 @@ namespace DataStructures
         {
             if (length == 0)
             {
+                if (array.Length == 0)
+                {
+                    throw new HeapifyEmptyArrayException("Cannot heapify an empty array");
+                }
                 length = array.Length;
             }
 
@@ -156,14 +161,17 @@ namespace DataStructures
 
         public static T[] HeapSort(T[] array)
         {
-            MaxHeap<T> heap = Heapify(array, array.Length);
+            MaxHeap<T> heap = Heapify(array);
             T[] sortedArray = new T[array.Length];
 
             for (int i = array.Length - 1; i >= 0; i--)
             {
                 sortedArray[i] = heap.Pop();
             }
-
+            foreach (T i in sortedArray)
+            {
+                Console.WriteLine(i);
+            }
             return sortedArray;
         }
     }
