@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using DataStructures;
 
 namespace DataStructures.Tests
 {
