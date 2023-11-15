@@ -30,7 +30,11 @@ namespace DataStructures
     {
         // Root node
         private BSTNode<T>? root;
-
+        // Constructor
+        public BinarySearchTree()
+        {
+            root = null;
+        }
         // Properties
         public bool IsEmpty
         {
@@ -40,11 +44,6 @@ namespace DataStructures
         public int Count
         {
             get { return GetCount(root); }
-        }
-        // Constructor
-        public BinarySearchTree()
-        {
-            root = null;
         }
         // Count helper method
         private int GetCount(BSTNode<T>? node)

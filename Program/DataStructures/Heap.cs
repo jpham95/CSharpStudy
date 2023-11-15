@@ -134,10 +134,14 @@ namespace DataStructures
         }
 
         // Class Methods
-
-        public static MaxHeap<T> Heapify(T[] array)
+        public static MaxHeap<T> Heapify(T[] array, int length = 0)
         {
-            MaxHeap<T> heap = new MaxHeap<T>(array.Length);
+            if (length == 0)
+            {
+                length = array.Length;
+            }
+
+            MaxHeap<T> heap = new MaxHeap<T>(length);
             heap.length = array.Length;
             for (int i = 0; i < array.Length; i++)
             {
@@ -152,9 +156,9 @@ namespace DataStructures
 
         public static T[] HeapSort(T[] array)
         {
-            MaxHeap<T> heap = Heapify(array);
+            MaxHeap<T> heap = Heapify(array, array.Length);
             T[] sortedArray = new T[array.Length];
-            
+
             for (int i = array.Length - 1; i >= 0; i--)
             {
                 sortedArray[i] = heap.Pop();
