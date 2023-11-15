@@ -19,6 +19,11 @@ namespace DataStructures
             Left = null;
             Right = null;
         }
+
+        public override string ToString()
+        {
+            return $"Node containing: {Value}";
+        }
     }
     
     public class BinarySearchTree<T> where T : IComparable<T>
