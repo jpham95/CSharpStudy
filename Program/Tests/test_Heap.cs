@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace DataStructures.Tests
 {
