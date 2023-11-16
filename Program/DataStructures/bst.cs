@@ -1,6 +1,7 @@
 #nullable enable
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DataStructures
@@ -26,7 +27,7 @@ namespace DataStructures
         }
     }
     
-    public class BinarySearchTree<T> where T : IComparable<T>
+    public class BinarySearchTree<T> : IEnumerable<T> where T : IComparable<T>
     {
         // Root node
         private BSTNode<T>? root;
@@ -146,7 +147,7 @@ namespace DataStructures
                 }
                 else
                 {
-                    BSTNode<T> minNode = findMin(node.Right);
+                    BSTNode<T> minNode = FindMin(node.Right);
                     node.Value = minNode.Value;
                     node.Right = removeHelper(node.Right, minNode.Value);
                 }
@@ -154,7 +155,7 @@ namespace DataStructures
             return node;
         }
         // findMin method returns min node
-        private BSTNode<T> findMin(BSTNode<T> node)
+        private BSTNode<T> FindMin(BSTNode<T> node)
         {
             if (node.Left == null)
             {
@@ -162,11 +163,11 @@ namespace DataStructures
             }
             else
             {
-                return findMin(node.Left);
+                return FindMin(node.Left);
             }
         }
         // preorder traversal
-        public void PreorderTraversal(Action<T> action)
+        public void Preorder(Action<T> action)
         {
             preorderHelper(root, action);
         }
@@ -180,7 +181,7 @@ namespace DataStructures
             }
         }
         // postorder traversal
-        public void PostorderTraversal(Action<T> action)
+        public void Postorder(Action<T> action)
         {
             postorderHelper(root, action);
         }
@@ -194,7 +195,7 @@ namespace DataStructures
             }
         }
         // inorder traversal
-        public void InorderTraversal(Action<T> action)
+        public void Inorder(Action<T> action)
         {
             inorderHelper(root, action);
         }
@@ -205,6 +206,34 @@ namespace DataStructures
                 inorderHelper(node.Left, action);
                 action(node.Value);
                 inorderHelper(node.Right, action);
+            }
+        }
+
+        // Iterator
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException(); 
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<T> InOrderTraversal(BSTNode<T>? node)
+        {
+            if (node != null)
+            {
+                foreach (var value in InOrderTraversal(node.Left))
+                {
+                    yield return value;
+                }
+                yield return node.Value;
+                
+                foreach (var value in InOrderTraversal(node.Right))
+                {
+                    yield return value;
+                }
             }
         }
     }

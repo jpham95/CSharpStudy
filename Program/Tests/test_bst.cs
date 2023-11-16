@@ -100,7 +100,7 @@ namespace DataStructures.Tests
             var index = 0;
 
             // Act
-            bst.PreorderTraversal(x => actual[index++] = x);
+            bst.Preorder(x => actual[index++] = x);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -120,7 +120,7 @@ namespace DataStructures.Tests
             var index = 0;
 
             // Act
-            bst.PostorderTraversal(x => actual[index++] = x);
+            bst.Postorder(x => actual[index++] = x);
 
             // Assert
             Assert.AreEqual(expected, actual);
@@ -140,7 +140,7 @@ namespace DataStructures.Tests
             var index = 0;
 
             // Act
-            bst.InorderTraversal(x => actual[index++] = x);
+            bst.Inorder(x => actual[index++] = x);
 
             // Assert
             Assert.AreEqual(expected, actual);
