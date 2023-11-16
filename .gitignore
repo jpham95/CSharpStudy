@@ -1,3 +1,6 @@
 *.py
-*/bin/
-*/obj/
+bin/
+obj/
+Program/bin/
+Program/obj/
+
