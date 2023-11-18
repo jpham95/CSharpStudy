@@ -4,12 +4,7 @@ Playing around with C# data structures, csv parsing, and linq queries while lear
 
 TODO:
 
--> Unit Tests:
-
---> StreamDay class tests
-
---> CSV parsing tests
-
+-> Unit Tests [StreamDay class tests] and [CSV parsing tests]
 
 -> Refactor Program.cs
 
