@@ -212,12 +212,12 @@ namespace DataStructures
         // Iterator
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException(); 
+            return InOrderTraversal(root).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         private IEnumerable<T> InOrderTraversal(BSTNode<T>? node)

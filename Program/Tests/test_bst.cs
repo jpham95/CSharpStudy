@@ -171,5 +171,22 @@ namespace DataStructures.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        [Test]
+        public void Iterator_LINQ_MethodSyntax()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<int>();
+            bst.Insert(5);
+            bst.Insert(3);
+            bst.Insert(7);
+
+            var expected = new int[] { 5, 7 };
+
+            // Act
+            var actual = bst.Where(x => x > 3).ToArray();
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
