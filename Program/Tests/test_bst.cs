@@ -145,5 +145,31 @@ namespace DataStructures.Tests
             // Assert
             Assert.AreEqual(expected, actual);
         }
+
+        // TODO: Add tests for Iterator and Remove() and Contains()
+
+        [Test]
+        public void Iterator_TraversesTreeInOrder()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<int>();
+            bst.Insert(5);
+            bst.Insert(3);
+            bst.Insert(7);
+
+            var expected = new int[] { 3, 5, 7 };
+            var actual = new int[3];
+            var index = 0;
+
+            // Act
+            foreach (var value in bst)
+            {
+                actual[index++] = value;
+            }
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }
