@@ -183,10 +183,30 @@ namespace DataStructures.Tests
             var expected = new int[] { 5, 7 };
 
             // Act
-            var actual = bst.Where(x => x > 3).ToArray();
+            var result = bst.Where(x => x > 3).ToArray();
 
             // Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Iterator_LINQ_QuerySyntax()
+        {
+            // Arrange
+            var bst = new BinarySearchTree<string>();
+            bst.Insert("alpha");
+            bst.Insert("omega");
+            bst.Insert("beta");
+
+            var expected = new string[] { "beta", "omega" };
+
+            // Act
+            var result = from entry in bst
+                          where entry.Contains('e')
+                          select entry.ToArray();
+
+            // Assert
+            Assert.AreEqual(expected, result);
         }
     }
 }
