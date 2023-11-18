@@ -19,44 +19,33 @@ namespace Entries
         public int? MaxViewers { get; set; }
         public int? UniqueViewers { get; set; }
         public int? Follows { get; set; }
-        public double? MinsStreamed { get; set; }
-        public double? MinsWatched { get; set; }
+        public double? MinutesStreamed { get; set; }
+        public double? MinutesWatched { get; set; }
 
         public double? watchedToStreamedRatio {
             get {
-                if (MinsStreamed == null || MinsWatched == null)
+                if (MinutesStreamed == null || MinutesWatched == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return MinsWatched / MinsStreamed;
+                    return MinutesWatched / MinutesStreamed;
                 }
             }
         }
 
 
-        public StreamDay(string Date, double AverageViewers, int MaxViewers, int UniqueViewers, int Follows, double MinsStreamed, double MinsWatched)
+        public StreamDay(string Date, double AverageViewers, int MaxViewers, int UniqueViewers, int Follows, double MinutesStreamed, double MinutesWatched)
         {
             this.Date = Date;
             this.AverageViewers = AverageViewers;
             this.MaxViewers = MaxViewers;
             this.UniqueViewers = UniqueViewers;
             this.Follows = Follows;
-            this.MinsStreamed = MinsStreamed;
-            this.MinsWatched = MinsWatched;
+            this.MinutesStreamed = MinutesStreamed;
+            this.MinutesWatched = MinutesWatched;
             Property = SelectedProperty.AverageViewers;
-
-            Dictionary<string, object?> properties = new Dictionary<string, object?>()
-            {
-                { "AverageViewers", AverageViewers },
-                { "MaxViewers", MaxViewers },
-                { "Follows", Follows },
-                { "MinsStreamed", MinsStreamed },
-                { "MinsWatched", MinsWatched },
-                { "UniqueViewers", UniqueViewers },
-                { "StreamedToWatchedRatio", watchedToStreamedRatio },
-            };
         }
         public int CompareTo(StreamDay? other)
         {
@@ -78,10 +67,10 @@ namespace Entries
                     return Nullable.Compare(Follows, other.Follows);
                 case SelectedProperty.MinsStreamed:
                     // Compare MinsStreamed property
-                    return Nullable.Compare(MinsStreamed, other.MinsStreamed);
+                    return Nullable.Compare(MinutesStreamed, other.MinutesStreamed);
                 case SelectedProperty.MinsWatched:
                     // Compare MinsWatched property
-                    return Nullable.Compare(MinsWatched, other.MinsWatched);
+                    return Nullable.Compare(MinutesWatched, other.MinutesWatched);
                 case SelectedProperty.UniqueViewers:
                     // Compare UniqueViewers property
                     return Nullable.Compare(UniqueViewers, other.UniqueViewers);
@@ -94,18 +83,9 @@ namespace Entries
             }
         }
         
-        private T GetComparisonValue<T>()
-        {
-            throw new NotImplementedException();
-        }
         public override string ToString()
         {
-            string output = "";
-            foreach (SelectedProperty comparisonType in Enum.GetValues(typeof(SelectedProperty)))
-            {
-                output += $"{comparisonType}: ";
-            }
-            throw new NotImplementedException();
+            return $"Stream on {this.Date}";
         }
     }
 }

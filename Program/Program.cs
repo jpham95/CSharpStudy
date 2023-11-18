@@ -10,22 +10,30 @@ class Program
     static void Main(string[] args)
     {
         var Data = new List<StreamDay>();
+        Dictionary<string, StreamDay> DataDict = new Dictionary<string, StreamDay>();
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             PrepareHeaderForMatch = args => args.Header.Replace(" ", "") // Remove spaces from args
         };
 
         using (var reader = new StreamReader("Program/TwitchData.csv")) // Data omitted from repo
-        using (var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
+        using (var csv = new CsvReader(reader, config))
         {
-            //TODO: Read the data into a List
             csv.Read();
             csv.ReadHeader();
             while (csv.Read())
             {
                 var record = csv.GetRecord<StreamDay>();
-                
+                if (record != null)
+                {
+                    DataDict[record.Date] = record;
+                    Data.Add(record);
+                }
             }
+        }
+        foreach (var item in DataDict)
+        {
+            Console.WriteLine(item.Value);
         }
     }
 }
