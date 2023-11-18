@@ -2,7 +2,7 @@ namespace Entries
 {
     public class StreamDay : IComparable<StreamDay>
     {
-        public enum ComparisonType 
+        public enum SelectedProperty 
         { 
             AverageViewers,
             MaxViewers,
@@ -12,7 +12,9 @@ namespace Entries
             UniqueViewers,
             StreamedToWatchedRatio,
         };
-        public ComparisonType Comparison { get; set; }
+
+        public string Date { get; set; }
+        public SelectedProperty Property { get; set; }
         public double? AverageViewers { get; set; }
         public int? MaxViewers { get; set; }
         public int? UniqueViewers { get; set; }
@@ -20,7 +22,7 @@ namespace Entries
         public double? MinsStreamed { get; set; }
         public double? MinsWatched { get; set; }
 
-        private double? watchedToStreamedRatio {
+        public double? watchedToStreamedRatio {
             get {
                 if (MinsStreamed == null || MinsWatched == null)
                 {
@@ -34,15 +36,27 @@ namespace Entries
         }
 
 
-        public StreamDay(double AverageViewers, int MaxViewers, int UniqueViewers, int Follows, double MinsStreamed, double MinsWatched)
+        public StreamDay(string Date, double AverageViewers, int MaxViewers, int UniqueViewers, int Follows, double MinsStreamed, double MinsWatched)
         {
+            this.Date = Date;
             this.AverageViewers = AverageViewers;
             this.MaxViewers = MaxViewers;
             this.UniqueViewers = UniqueViewers;
             this.Follows = Follows;
             this.MinsStreamed = MinsStreamed;
             this.MinsWatched = MinsWatched;
-            Comparison = ComparisonType.AverageViewers;
+            Property = SelectedProperty.AverageViewers;
+
+            Dictionary<string, object?> properties = new Dictionary<string, object?>()
+            {
+                { "AverageViewers", AverageViewers },
+                { "MaxViewers", MaxViewers },
+                { "Follows", Follows },
+                { "MinsStreamed", MinsStreamed },
+                { "MinsWatched", MinsWatched },
+                { "UniqueViewers", UniqueViewers },
+                { "StreamedToWatchedRatio", watchedToStreamedRatio },
+            };
         }
         public int CompareTo(StreamDay? other)
         {
@@ -51,33 +65,47 @@ namespace Entries
                 return 1;
             }
             // Compare based on the selected ComparisonType
-            switch (Comparison)
+            switch (Property)
             {
-                case ComparisonType.AverageViewers:
+                case SelectedProperty.AverageViewers:
                     // Compare AverageViewers property
                     return Nullable.Compare(AverageViewers, other.AverageViewers);
-                case ComparisonType.MaxViewers:
+                case SelectedProperty.MaxViewers:
                     // Compare MaxViewers property
                     return Nullable.Compare(MaxViewers, other.MaxViewers);
-                case ComparisonType.Follows:
+                case SelectedProperty.Follows:
                     // Compare Follows property
                     return Nullable.Compare(Follows, other.Follows);
-                case ComparisonType.MinsStreamed:
+                case SelectedProperty.MinsStreamed:
                     // Compare MinsStreamed property
                     return Nullable.Compare(MinsStreamed, other.MinsStreamed);
-                case ComparisonType.MinsWatched:
+                case SelectedProperty.MinsWatched:
                     // Compare MinsWatched property
                     return Nullable.Compare(MinsWatched, other.MinsWatched);
-                case ComparisonType.UniqueViewers:
+                case SelectedProperty.UniqueViewers:
                     // Compare UniqueViewers property
                     return Nullable.Compare(UniqueViewers, other.UniqueViewers);
-                case ComparisonType.StreamedToWatchedRatio:
+                case SelectedProperty.StreamedToWatchedRatio:
                     // Compare streamedToWatchedRatio property
                     return Nullable.Compare(watchedToStreamedRatio, other.watchedToStreamedRatio);
                 default:
                     // Invalid ComparisonType
                     throw new ArgumentException("Invalid ComparisonType");
             }
+        }
+        
+        private T GetComparisonValue<T>()
+        {
+            throw new NotImplementedException();
+        }
+        public override string ToString()
+        {
+            string output = "";
+            foreach (SelectedProperty comparisonType in Enum.GetValues(typeof(SelectedProperty)))
+            {
+                output += $"{comparisonType}: ";
+            }
+            throw new NotImplementedException();
         }
     }
 }
