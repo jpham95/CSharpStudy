@@ -4,3 +4,4 @@ obj/
 Program/bin/
 Program/obj/
 .vs/
+*.csv
