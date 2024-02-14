@@ -1,6 +1,6 @@
 # C\# Study
  
-Playing around with C# data structures, csv parsing, and linq queries while learning the language.
+Playing around with C# data structures, csv parsing, unit testing, and linq queries while learning the language.
 
 TODO:
 
